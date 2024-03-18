@@ -1,3 +1,5 @@
+const prompt = require('prompt-sync')();
+
 let bookLists = [
     { title: "Typescript Fundamental", author:"Suradej K.", year: 2023, price: 250},
     { title: "Angular Fundamental", author:"Malee Coconut", year: 2019, price: 150},
@@ -54,6 +56,7 @@ function viewBooks() {
                      Price:     ${book.price}`
                    )
     }) 
+    console.log("\n---------------------")
 }
 
 function editBook(){
@@ -83,7 +86,8 @@ function deleteBook() {
 }
 
 console.log("Welcome to Book Management System")
-while (true) {
+let running = true;
+while (running) {
     console.log("Commands : ")
     console.log("1. View books")
     console.log("2. Add new book")
@@ -106,6 +110,7 @@ while (true) {
             break;
         case "5":
             console.log("See you again!")
+            running = false
             break;
         default:
             console.log("Invalid command")
