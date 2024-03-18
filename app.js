@@ -25,10 +25,18 @@ function addBook(){
 }
 
 function viewBooks() {
-    console.log("List of books")
-    for (let book of bookLists) {
-        console.log(book.title)
-    }
+    console.log("\n--- List of books ---")
+    bookLists.forEach((book, index) => {
+        console.log(`#${index + 1}:
+                     Title:     ${book.title}, 
+                     Author:    ${book.author}, 
+                     Year:      ${book.year}, 
+                     Price:     ${book.price}`
+                   )
+    }) 
+}
+
+function editBook(){
 
 }
 
