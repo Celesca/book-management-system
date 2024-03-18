@@ -5,22 +5,40 @@ let bookLists = [
 ]
 
 function validateBook(book) {
-
+    if (book.year <= 1000 || book.year > 2024 || book.year === "") {
+        alert("Invalid year")
+        return false
+    }
+    if (book.price < 0 || book.price === "") {
+        alert("Invalid price")
+        return false
+    }
+    if (book.title === "" || book.author === "") {
+        alert("Invalid title or author")
+        return false
+    }
+    return true
 }
 
-function addBook(){
+function enterBookInfo() {
     let title = prompt("Enter book title: ")
     let author = prompt("Enter book author: ")
     let year = prompt("Enter book year: ")
     let price = prompt("Enter book price: ")
-
     let book = {title, author, year, price}
-    if (validateBook(book)) {
-        bookLists.push(book)
-        console.log("Book added")
+    return book
+}
+
+function addBook(){
+
+    let newBook = enterBookInfo()
+
+    if (validateBook(newBook)) {
+        bookLists.push(newBook)
+        alert("Book added")
     }
     else {
-        console.log("Invalid book")
+        alert("Book cannot be added")
     }
 }
 
@@ -34,36 +52,69 @@ function viewBooks() {
                      Price:     ${book.price}`
                    )
     }) 
+    console.log("\n---------------------")
 }
 
 function editBook(){
+    const targetBook = prompt("Enter book number to edit: ")
+    if (targetBook > 0 && targetBook <= bookLists.length) {
+        let book = enterBookInfo()
 
+        if (validateBook(book)) {
+            bookLists[targetBook - 1] = book
+            alert("Book edited")
+        }
+        else {
+            alert("Book cannot be edited")
+        }
+    } else {
+        alert("Invalid book number")
+    }
 }
 
-console.log("Welcome to Book Management System")
+function deleteBook() {
+    const targetBook = prompt("Enter book number to delete: ")
+    if (targetBook > 0 && targetBook <= bookLists.length) {
+        bookLists.splice(targetBook - 1, 1)
+        alert("Book number " + targetBook + " has been deleted.")
+    } else {
+        alert("Invalid book number")
+    }
+}
 
+function startProgram(){
+    console.log("Welcome to Book Management System")
+    let running = true;
+    while (running) {
+        console.log("Commands : ")
+        console.log("1. View books")
+        console.log("2. Add new book")
+        console.log("3. Edit book")
+        console.log("4. Delete book")
+        console.log("5. Quit")
+        let command = prompt("Enter command (1-4) : ")
+        switch (command) {
+            case "1":
+                viewBooks()
+                break;
+            case "2":
+                addBook()
+                break;
+            case "3":
+                editBook()
+                break;
+            case "4":
+                deleteBook()
+                break;
+            case "5":
+                console.log("See you again!")
+                running = false
+                break;
+            default:
+                console.log("Invalid command")
+                break;
+        }
 
-while (true) {
-    let command = prompt("Enter command (1-4) : ")
-    switch (command) {
-        case "1":
-            addBook()
-            break;
-        case "2":
-            console.log("2. Add new book")
-            break;
-        case "3":
-            console.log("3. Update book")
-            break;
-        case "4":
-            console.log("4. Delete book")
-            break;
-        case "5":
-            console.log("5. Quit")
-            break;
-        default:
-            console.log("Invalid command")
-            break;
     }
 
 }
