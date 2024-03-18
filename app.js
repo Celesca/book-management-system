@@ -5,21 +5,38 @@ let bookLists = [
 ]
 
 function validateBook(book) {
-
+    if (book.title && book.author && book.year && book.price) {
+        if (book.year > 2023 || book.year < 1000) {
+            console.log("Invalid year")
+            return false
+        }
+        if (book.price < 0) {
+            console.log("Invalid price")
+            return false
+        }
+        return true
+    }
+    else {
+        console.log("Invalid book")
+        return false
+    }
 }
 
-function bookInfoDto() {
+function enterBookInfo() {
     let title = prompt("Enter book title\t: ")
     let author = prompt("Enter book author\t: ")
     let year = prompt("Enter book year\t: ")
     let price = prompt("Enter book price\t: ")
     let book = {title, author, year, price}
+    return book
 }
 
 function addBook(){
 
-    if (validateBook(book)) {
-        bookLists.push(book)
+    let newBook = enterBookInfo()
+
+    if (validateBook(newBook)) {
+        bookLists.push(newBook)
         console.log("Book added")
     }
     else {
@@ -42,12 +59,7 @@ function viewBooks() {
 function editBook(){
     const targetBook = prompt("Enter book number to edit: ")
     if (targetBook > 0 && targetBook <= bookLists.length) {
-        let title = prompt("Enter book title\t: ")
-        let author = prompt("Enter book author\t: ")
-        let year = prompt("Enter book year\t: ")
-        let price = prompt("Enter book price\t: ")
-
-        let book = {title, author, year, price}
+        let book = enterBookInfo()
         if (validateBook(book)) {
             bookLists[targetBook - 1] = book
             console.log("Book edited")
@@ -55,13 +67,22 @@ function editBook(){
         else {
             console.log("Invalid book")
         }
+    } else {
+        console.log("Invalid book number")
     }
+}
 
+function deleteBook() {
+    const targetBook = prompt("Enter book number to delete: ")
+    if (targetBook > 0 && targetBook <= bookLists.length) {
+        bookLists.splice(targetBook - 1, 1)
+        console.log("Book deleted")
+    } else {
+        console.log("Invalid book number")
+    }
 }
 
 console.log("Welcome to Book Management System")
-
-
 while (true) {
     console.log("Commands : ")
     console.log("1. View books")
@@ -81,10 +102,10 @@ while (true) {
             editBook()
             break;
         case "4":
-            console.log("4. Delete book")
+            deleteBook()
             break;
         case "5":
-            console.log("5. Quit")
+            console.log("See you again!")
             break;
         default:
             console.log("Invalid command")
