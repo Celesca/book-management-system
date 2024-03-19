@@ -89,6 +89,7 @@ function deleteBook() {
     } else {
         alert("Invalid book number")
     }
+    console.log("\n---------------------")
 }
 
 function startProgram(){
