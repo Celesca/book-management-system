@@ -20,6 +20,15 @@ function validateBook(book) {
     return true
 }
 
+function displayBook(book) {
+    console.log(`
+    Title:     ${book.title}, 
+    Author:    ${book.author}, 
+    Year:      ${book.year}, 
+    Price:     ${book.price}`
+  )
+}
+
 function enterBookInfo() {
     let title = prompt("Enter book title: ")
     let author = prompt("Enter book author: ")
@@ -35,22 +44,20 @@ function addBook(){
 
     if (validateBook(newBook)) {
         bookLists.push(newBook)
+        displayBook(book)
         alert("Book added")
     }
     else {
         alert("Book cannot be added")
     }
+    console.log("\n---------------------")
 }
 
 function viewBooks() {
     console.log("\n--- List of books ---")
     bookLists.forEach((book, index) => {
-        console.log(`#${index + 1}:
-                     Title:     ${book.title}, 
-                     Author:    ${book.author}, 
-                     Year:      ${book.year}, 
-                     Price:     ${book.price}`
-                   )
+        console.log(`#${index + 1}:`)
+        displayBook(book)
     }) 
     console.log("\n---------------------")
 }
@@ -63,6 +70,7 @@ function editBook(){
         if (validateBook(book)) {
             bookLists[targetBook - 1] = book
             alert("Book edited")
+            displayBook(book)
         }
         else {
             alert("Book cannot be edited")
@@ -70,6 +78,7 @@ function editBook(){
     } else {
         alert("Invalid book number")
     }
+    console.log("\n---------------------")
 }
 
 function deleteBook() {
@@ -107,11 +116,11 @@ function startProgram(){
                 deleteBook()
                 break;
             case "5":
-                console.log("See you again!")
+                alert("See you again!")
                 running = false
                 break;
             default:
-                console.log("Invalid command")
+                alert("Invalid command")
                 break;
         }
 
