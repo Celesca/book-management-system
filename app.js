@@ -5,15 +5,15 @@ let bookLists = [
 ]
 
 function validateBook(book) {
-    if (book.year <= 1000 || book.year > 2024 || book.year === "") {
+    if (book.year <= 1000 || book.year > 2024 || !book.year) {
         alert("Invalid year")
         return false
     }
-    if (book.price < 0 || book.price === "") {
+    if (book.price < 0 || !book.price) {
         alert("Invalid price")
         return false
     }
-    if (book.title === "" || book.author === "") {
+    if (!book.title || !book.author) {
         alert("Invalid title or author")
         return false
     }
@@ -32,8 +32,8 @@ function displayBook(book) {
 function enterBookInfo() {
     let title = prompt("Enter book title: ")
     let author = prompt("Enter book author: ")
-    let year = prompt("Enter book year: ")
-    let price = prompt("Enter book price: ")
+    let year = parseInt(prompt("Enter book year: "))
+    let price = parseInt(prompt("Enter book price: "))
     let book = {title, author, year, price}
     return book
 }
@@ -44,7 +44,7 @@ function addBook(){
 
     if (validateBook(newBook)) {
         bookLists.push(newBook)
-        displayBook(book)
+        displayBook(newBook)
         alert("Book added")
     }
     else {
@@ -122,6 +122,7 @@ function startProgram(){
                 break;
             default:
                 alert("Invalid command")
+                running = false
                 break;
         }
 
