@@ -32,15 +32,31 @@ function displayBook(book) {
 function enterBookInfo() {
     let title = prompt("Enter book title: ")
     let author = prompt("Enter book author: ")
-    let year = parseInt(prompt("Enter book year: "))
+    let year = prompt("Enter book year: ")
     let price = parseInt(prompt("Enter book price: "))
+
+    if (year % 1 !== 0) {
+        alert("Invalid year")
+        return null
+    }
+    if (price % 1 !== 0) {
+        alert("Invalid price")
+        return null 
+    }
+
+    year = parseInt(year)
+    price = parseInt(price)
     let book = {title, author, year, price}
     return book
 }
 
 function addBook(){
-
     let newBook = enterBookInfo()
+    if (!newBook){
+        alert("Invalid Input. Book cannot be added")
+        return
+    }
+
 
     if (validateBook(newBook)) {
         bookLists.push(newBook)
